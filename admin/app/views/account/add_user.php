@@ -75,7 +75,13 @@ include $tpl . 'header.php';
             </select>
           </div>
 
-          
+          <div class="form-group">
+            <label>Ảnh đại diện:</label>
+            <input class="form-control" type="file" name="profile_img">
+            <?php if(isset($data['imageError'])): ?>
+               <div class="alert alert-danger"><?php echo $data['imageError']; ?></div>
+           <?php  endif; ?>
+          </div>
 
           <input class="btn btn-primary d-block m-auto" type="submit"  value="Thêm mới">
         </form>
