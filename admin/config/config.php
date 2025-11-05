@@ -5,10 +5,10 @@
 // ========================
 
 // Đường dẫn URL chính của website (phần user)
-define("BASEURL", "http://localhost/Blog-with-mvc-system-master/public");
+define("BASEURL", "http://localhost/DoAnWeb-TinTuc-Nhom11/public");
 
 // Đường dẫn URL chính của phần admin
-define("ADMINSITE", "http://localhost/Blog-with-mvc-system-master/admin/public");
+define("ADMINSITE", "http://localhost/DoAnWeb-TinTuc-Nhom11/admin/public");
 
 // ========================
 // 🖼️ IMAGE PATHS
