@@ -25,7 +25,7 @@ class reset_password extends Framework{
        $userEmail = $_POST['email'];
        $selector = bin2hex(random_bytes(8));
        $validator    = bin2hex(random_bytes(32));
-       $url = "http://localhost/Blog-with-mvc-system-master/create_new_password/msg/?selector=" . $selector . "&validator=" . $validator;
+       $url = "http://localhost/DoAnWeb-TinTuc-Nhom11/create_new_password/msg/?selector=" . $selector . "&validator=" . $validator;
 
        $expires = date("U") . 1800; // the end time of your message; date("u") get current date
 
