@@ -1,0 +1,345 @@
+/*
+    Theme Name: Blog system
+    Theme Coder: Mohamed Sebai
+    psd Designer:
+*/
+/* Start main changes */
+.order-list ul{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.order-list ul li{
+  padding: 5px 10px;
+  background-color: orange;
+  margin: 0 1px;
+}
+.order-list ul li a{
+  text-decoration: none;
+  color: black;
+}
+.order-list ul li a:hover{
+  color: white;
+}
+body{
+  overflow-x: hidden;
+  background: #ff007645;
+}
+body.member-page-body{
+  position: relative;
+  background: url(../img/login.jpg) top center no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100vh;
+  background-attachment: fixed;
+}
+body.member-page-body .overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 1;
+}
+/* width */
+::-webkit-scrollbar{
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #b90a0a;
+}
+/* Handle */
+::-webkit-scrollbar-thumb{
+  background: #e26a24;
+}
+.main-body{
+  padding: 0;
+}
+/* ::-webkit-scrollbar-button{
+  background: red
+} */
+/* End main changes */
+
+
+
+/* Start Header */
+.navigation{
+  overflow: auto;
+  background: #b90a0a;
+  position: fixed;
+  left: -100%;
+  z-index: 999;
+  height: 100%;
+  color: #fff;
+  width: 300px;
+}
+.navigation .toggle-menu{
+  position: fixed;
+  left: 0;
+  display: block;
+  background: #ff2f00;
+  padding: 10px;
+  text-align: center;
+}
+.navigation .toggle-menu .fa{
+  font-size: 29px;
+}
+.navigation .nav{
+  margin-top: 60px;
+  padding-left: 15px;
+}
+.navigation .nav .account-meta h3,
+.navigation .nav .account-meta p{
+  display: block;
+  margin: 0;
+}
+.navigation .nav .account-meta h3{ margin-bottom: 4px; }
+.navigation .nav .account-meta p{ margin-bottom: 10px; }
+.navigation .nav .logo-box{
+  max-width: 120px;
+  max-height: 80px;
+}
+.navigation .nav .logo-box img{
+  max-width: 100%;
+  max-height: 100%;
+}
+.navigation .nav .searchform{
+  width: 250px;
+
+}
+.navigation .nav .searchform .form-group .form-control{
+  width: 100%;
+  margin-bottom: 10px;
+  outline: none;
+  border: 1px solid #948986;
+  background: #ff7600
+}
+.navigation .nav .searchform .form-group input[type="submit"]{
+  outline: none;
+  border: none;
+  background: #0d346f;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 7px;
+  color: #f1f1f1;
+  transition: .4s;
+}
+.navigation .nav .searchform .form-group input[type="submit"]:hover{
+  background-color: #0a254e;
+}
+.navigation .nav ul{
+  margin: 0;
+  padding: 0;
+}
+.navigation .nav .searchform h2,
+.navigation .nav .join-us h2,
+.navigation .nav ul h2{
+  margin: 15px 0;
+}
+.navigation .nav .join .join-us,
+.navigation .nav ul li{
+  width: 90% !important;
+  float: left;
+  padding: 2px 20px;
+  line-height: 40px;
+  background: #ff7600;
+  margin-right: 4px;
+  margin-bottom: 5px;
+  text-align: center;
+  transition: .4s;
+}
+.navigation .nav .join .join-us:hover,
+.navigation .nav ul li:hover{
+  background-color: #ff3b00;
+}
+.navigation .nav .join .join-us,
+.navigation .nav ul li a{
+  text-decoration: none;
+  color: #f1f1f1;
+}
+.navigation .nav .join{
+  margin-bottom: 20px;
+}
+.navigation .nav .join h2{
+  margin: 20px 0;
+}
+/* End Navigation */
+
+/* Start Header */
+.header{
+  background: #ff006a;
+}
+.header a{
+  font-size: 23px;
+  text-transform: capitalize;
+  display: inline-block;
+  padding: 0 30px;
+  color: #fff;
+  text-decoration: none;
+  margin: 2px 0;
+}
+.main-body{
+  margin-top: 50px;
+}
+.main-body .stat{
+  border-radius: 15px;
+  color: #fff;
+  background: #000;
+  padding: 25px 30px;
+  margin-bottom: 10px;
+}
+.main-body .stat h5{
+  font-size: 20px;
+  font-weight: bold;
+}
+.main-body .stat .fa{
+  font-size: 25px;
+  font-weight: bold;
+}
+.main-body .stat span{
+  font-size: 17px;
+  font-weight: bold;
+}
+.main-body .stat.user{
+  background: #004eff
+}
+.main-body .stat.post{
+  background: #139848
+}
+.main-body .stat.category{
+  background: #4c0b44
+}
+
+.main-body .latest-items{
+  color: #fff;
+  margin-top: 50px;
+}
+.main-body .latest-items .latest{
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0px 1px 16px 0px #d6d6d6
+}
+.main-body .latest-items .latest h4{
+  background: #ff006a;
+  padding: 2px 20px;
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 18px;
+}
+.main-body .latest-items .latest .item{
+  padding: 5px 15px;
+  background: #797979;
+}
+.main-body .latest-items .latest .item span.title,
+.main-body .latest-items .latest .item span.author{
+  margin-left: 13px;
+  font-size: 17px;
+  font-weight: bold;
+}
+.main-body .latest-items .latest .item span.email{
+  font-size: 14px;
+  font-weight: bold;
+}
+.main-body .latest-items .latest .item span.cat{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form-box{
+  padding: 0 20px;
+  margin: auto;
+  width: 600px
+}
+.responsive-table h2,
+.form-box h2{
+  background: #ff006a;
+  margin-bottom: 26px;
+  font-size: 25px;
+  padding: 5px 0;
+  color: #fff;
+}
+
+table thead tr{
+  background: #86073c;
+  color: #fff;
+
+}
+table thead tr th{
+  padding: 4px 13px;
+}
+table tbody tr{
+  padding: 4px 10px;
+  background-color: #ff92bf;
+  border-bottom: 2px solid #86073c;
+}
+table tbody tr td{
+  padding: 4px 10px;
+}
+.custom-btn{
+  padding: 2px 10px;
+  margin: 0 6px;
+}
+.custom-btn i{
+  margin: 0 5px 0 0 ;
+}
+
+/* start show */
+
+.show{
+  margin-top: 30px;
+}
+
+
+
+/* end show */
+
+
+
+/* Start Login Page */
+.member-page{
+  width: 500px;
+  z-index: 99;
+  color: #fff;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  display: inline-block;
+  padding: 30px 68px;
+  background: #ff33622e;
+}
+.member-page .form-box {
+  width: 330px
+}
+.member-page .form-box  h3{
+  font-size: 26px !important;
+  margin-bottom: 20px;
+  color: #e6e6e6;
+}
+.member-page .form-box .form-group{
+  width: 100%;
+}
+.member-page .form-box .form-group .form-control{
+  outline: none;
+  background: #01010059;
+  border: none;
+  color: #f1f1f1;
+}
+.member-page .form-box .form-group .form-control:focus{
+  border: none;
+}
+.member-page .form-box input[type="submit"]{
+  width: 120px;
+  background-color: #73152aa6;
+  border: 1px solid #ab243fbf;
+  transition: .4s;
+}
+.member-page .form-box input[type="submit"]:hover{
+  background-color: #ab243fbf;
+  border: 1px solid #73152aa6;
+}
+/* End login Page */
