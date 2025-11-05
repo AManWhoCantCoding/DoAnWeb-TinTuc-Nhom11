@@ -245,7 +245,7 @@ INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `profile_img`, `gend
 (125, 'user2', 'user2@gmail.com', '$2y$10$ZW4vlZZCN06s8patrYsrJOMZBfYWXUb980U6nEL.HqhJoOVqk26w.', 'asdf', 0, 'VN', 0, 0, '2025-10-23 05:32:28', '2025-10-23 05:32:28'),
 (126, 'user3', 'user3@gmail.com', '$2y$10$GkTQrED0y0Gt1m0wX/yt3.oSBEiOTXsrpkGXerFN62NvOonqW004W', '', 0, 'VN', 0, 0, '2025-10-23 21:48:16', '2025-10-23 21:48:16'),
 (127, 'admin1', 'admin1@gmail.com', '$2y$10$mv.nBDDO43GknxjXtP9P.ujmPvwU5S/lxIZdHgOMh24OKAncP6GAe', 'IMG-81826268.png', 0, 'VN', 0, 1, '2025-10-23 21:48:55', '0000-00-00 00:00:00'),
-(128, 'abc', 'abc@gmail.com', '$2y$10$3xiniLnUMM/V3rr1oivjsugxrT.VX4eQFMLRAw2UIy/7xB6Ld7qCW', 'C:/xampp/htdocs/Blog-with-mvc-system-master/admin/public/img/post/88441703IMG-81826267.png', 0, 'VN', 1, 0, '2025-10-24 11:41:25', '2025-10-24 11:46:08');
+(128, 'abc', 'abc@gmail.com', '$2y$10$3xiniLnUMM/V3rr1oivjsugxrT.VX4eQFMLRAw2UIy/7xB6Ld7qCW', 'C:/xampp/htdocs/DoAnWeb-TinTuc-Nhom11/admin/public/img/post/88441703IMG-81826267.png', 0, 'VN', 1, 0, '2025-10-24 11:41:25', '2025-10-24 11:46:08');
 
 --
 -- Chỉ mục cho các bảng đã đổ
