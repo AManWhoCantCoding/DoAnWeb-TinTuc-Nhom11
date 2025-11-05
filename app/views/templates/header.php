@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?php echo $path->get_path("css","main.css"); ?>">
     <link rel="stylesheet" href="<?php echo $path->get_path("fonts","font-awesome.min.css"); ?>">
 </head>
-<base href="http://localhost/Blog-with-mvc-system-master/public/">
+<base href="http://localhost/DoAnWeb-TinTuc-Nhom11/public/">
 <?php
 
 // every controller must contain auth class model 
