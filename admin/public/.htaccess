@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
   Options -Multiviews
   RewriteEngine On
-  RewriteBase /Blog-with-mvc-system-master/admin/public/
+  RewriteBase /DoAnWeb-TinTuc-Nhom11/admin/public/
 
   # Cho phép truy cập trực tiếp file tĩnh (CSS/JS/ảnh)
   RewriteCond %{REQUEST_FILENAME} -f
