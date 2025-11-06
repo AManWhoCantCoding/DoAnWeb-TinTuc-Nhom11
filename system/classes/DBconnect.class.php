@@ -22,7 +22,8 @@ class DBconnect{
       return $db;
       }
     catch(PDOException $e){
-       echo 'not connecting' . $e->getMessage();
+       // Avoid echoing into API responses; surface error to caller
+       throw $e;
     }
   }
 
