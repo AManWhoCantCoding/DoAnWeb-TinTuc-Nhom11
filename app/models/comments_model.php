@@ -1,6 +1,6 @@
 <?php
 
-class comments extends DBconnect{
+class comments_model extends DBconnect{
 
 
   final public function get_comments_count($data, $id){
@@ -117,3 +117,5 @@ class comments extends DBconnect{
 
 
 }
+
+
