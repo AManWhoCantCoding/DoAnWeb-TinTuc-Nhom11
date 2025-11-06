@@ -23,8 +23,25 @@ document.addEventListener('DOMContentLoaded', function () {
 			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
 			body: JSON.stringify({ post_id: postId, comment_body: content, parent: '0' })
 		})
-		.then(function (res) { return res.json(); })
-		.then(function (data) {
+		.then(function (res) {
+			return res.text().then(function (text) {
+				return {
+					ok: res.ok,
+					status: res.status,
+					contentType: res.headers.get('content-type') || '',
+					text: text
+				};
+			});
+		})
+		.then(function (payload) {
+			var data = null;
+			if (payload.contentType.indexOf('application/json') !== -1) {
+				try { data = JSON.parse(payload.text); } catch (e) {}
+			}
+			if (!data) {
+				alert('Máy chủ trả về phản hồi không hợp lệ.');
+				return;
+			}
 			if (!data || !data.success) {
 				alert((data && data.message) ? data.message : 'Gửi bình luận thất bại');
 				return;
