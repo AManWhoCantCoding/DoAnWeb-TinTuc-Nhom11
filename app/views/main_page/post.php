@@ -19,7 +19,7 @@ include $tpl . 'header.php';
            $postData = $data['row_single'];
            $id              = $postData['post_id'];
            $title           = substr($postData['title'], 0 , 100);
-           $content         = substr($postData['content'], 0 , 100);
+          $content         = $postData['content'];
            $author_fullname = $postData['author_fullname'];
            $category_name   = $postData['category_name'];
            $category_id     = $postData['category_id'];
