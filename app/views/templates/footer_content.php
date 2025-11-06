@@ -1,22 +1,6 @@
 <div class="footer" id="footer">
   <div class="container">
 
-    <div class="secendry_advertising">
-      <div class="row">
-        <div class="col-md-6">
-           <div class="ads-box">
-             <a href=""><img src="<?php echo IMG_PATH_ADS; ?>43945778986_main-ads.jpg" class="img-fluid" /></a>
-           </div>
-         </div>
-          <div class="col-md-6">
-             <div class="ads-box">
-               <a href=""><img src="<?php echo IMG_PATH_ADS; ?>43945778986_main-ads.jpg" class="img-fluid" /></a>
-             </div>
-           </div>
-      </div>
-    </div>
-
-
    <div class="row">
 
     <div class="col-md-4">

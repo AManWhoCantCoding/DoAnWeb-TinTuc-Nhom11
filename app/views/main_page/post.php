@@ -4,7 +4,7 @@ include IINT_VIEWS;
 $format->page_title = 'Bài viết';
 include $tpl . 'header.php';
 ?>
-<body>
+<body class="post-page">
 <?php include $tpl . 'navbar.php'; ?>
 <?php include $tpl . 'main_ads.php'; ?>
 
@@ -36,126 +36,126 @@ include $tpl . 'header.php';
               <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="d-block"><h5><?php echo $title; ?></h5></a>
               <span class="date"><i class="fa fa-calendar"></i><?php echo $date_diff; ?></span><br>
               <span class="author"><i class="fa fa-user"></i><?php echo $author_fullname; ?></span>
-              <P><?php echo $content; ?></P>
+              <P style="white-space: pre-wrap; line-height: 1.8; color: #000;"><?php echo nl2br($content); ?></P>
               <div class="categories"><i class="fa fa-tags"></i>
                 Thể loại:
                 <a href="<?php echo BASEURL; ?>/categories/posts/<?php echo $category_id; ?>/?page=1"><?php echo $category_name; ?></a>
               </div>
-              <div class="categories"><i class="fa fa-tags"></i>
-                Thẻ:
-                <?php
-                $tags = str_replace(' ', '', $tags);
-                $tags = explode(',', $tags);
-                foreach($tags as $tag):
-                ?>
-                <a href="<?php echo BASEURL; ?>/tags/posts/<?php echo $tag; ?>/?page=1"><?php echo $tag; ?></a>
-                <?php
-                endforeach;
-                ?>
-              </div>
             </div>
         </div>
       <?php endif; ?>
-       <!-- Bình luận -->
-         <?php include $tpl . 'comments.php'; ?>
-       <!-- Kết thúc phần bình luận -->
      </div>
      <!-- Kết thúc cột bài viết -->
 
-     <!-- Sidebar -->
-      <?php include $tpl . 'right_sidebar.php'; ?>
-     <!-- Kết thúc sidebar -->
+     <!-- Sidebar - Đã xóa cho trang bài viết -->
+     <div class="d-none d-md-block col-md-3">
+       <!-- Sidebar trống cho trang bài viết -->
+     </div>
    </div>
 
   </div>
 </div>
 <!-- Kết thúc phần nội dung chính -->
 
-<!-- Phần Tin mới và Tin tức ngẫu nhiên -->
+<!-- Phần Bình luận -->
 <div class="main-body">
-<div class="container">
-  <!-- Phần tin mới -->
-  <div class="cat_news">
-    <h2 class="header">Tin mới</h2>
+  <div class="container">
     <div class="row">
-      <?php
-      if($data['count_limit'] > 0):
-      foreach($data['row_limit'] as $post):
-        $id              = $post['post_id'];
-        $title           = substr($post['title'], 0 , 100);
-        $content         = substr($post['content'], 0 , 100);
-        $author_fullname = $post['author_fullname'];
-        $img             = $post['img'];
-      ?>
-      <div class="col-md-3">
-        <div class="news-box">
-          <div class="img-box">
-            <div class="overlay"></div>
-            <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>">
-              <img class="img-fluid" src="<?php echo IMG_PATH_POST; ?><?php echo $img; ?>"/>
-            </a>
-          </div>
-         <div class="news-box-body">
-           <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="d-block"><h5><?php echo $title; ?></h5></a>
-             <P><?php echo $content; ?></P>
-           <P><?php echo $author_fullname; ?></P>
-           <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="read-more">Đọc thêm</a>
-         </div>
-        </div>
+      <div class="col-md-9">
+        <?php include $tpl . 'comments.php'; ?>
       </div>
-    <?php endforeach; ?>
-    <?php else: ?>
-      <div class="alert alert-danger">Không có bài viết nào</div>
-    <?php endif; ?>
     </div>
   </div>
+</div>
+<!-- Kết thúc phần Bình luận -->
 
-  <!-- Phần tin tức ngẫu nhiên -->
-  <div class="cat_news">
-    <h2 class="header">Tin tức ngẫu nhiên</h2>
-    <div class="row">
-      <?php
-      // Lấy 4 bài viết ngẫu nhiên từ cơ sở dữ liệu
-      $random_count = $common_data->select__random_posts_data(4)['count'];
-      $random_postsData = $common_data->select__random_posts_data(4)['row'];
-
-      // Nếu có bài viết thì hiển thị
-      if($random_count > 0):
-        foreach($random_postsData as $post):
+<!-- Phần Tin mới -->
+<div class="main-body">
+  <div class="container">
+    <div class="cat_news">
+      <h2 class="header">Tin mới</h2>
+      <div class="row">
+        <?php
+        if($data['count_limit'] > 0):
+        foreach($data['row_limit'] as $post):
           $id              = $post['post_id'];
           $title           = substr($post['title'], 0 , 100);
           $content         = substr($post['content'], 0 , 100);
           $author_fullname = $post['author_fullname'];
           $img             = $post['img'];
-      ?>
-      <div class="col-md-3">
-        <div class="news-box">
-          <div class="img-box">
-            <div class="overlay"></div>
-            <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>">
-              <img class="img-fluid" src="<?php echo IMG_PATH_POST . $img; ?>"/>
-            </a>
+        ?>
+        <div class="col-md-3">
+          <div class="news-box">
+            <div class="img-box">
+              <div class="overlay"></div>
+              <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>">
+                <img class="img-fluid" src="<?php echo IMG_PATH_POST; ?><?php echo $img; ?>"/>
+              </a>
+            </div>
+           <div class="news-box-body">
+             <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="d-block"><h5><?php echo $title; ?></h5></a>
+               <P><?php echo $content; ?></P>
+             <P><?php echo $author_fullname; ?></P>
+             <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="read-more">Đọc thêm</a>
+           </div>
           </div>
-         <div class="news-box-body">
-           <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="d-block"><h5><?php echo $title; ?></h5></a>
-             <P><?php echo $content; ?></P>
-           <P><?php echo $author_fullname; ?></P>
-           <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="read-more">Đọc thêm</a>
-         </div>
         </div>
-      </div>
-      <?php 
-        endforeach; 
-      else: ?>
-        <div class="alert alert-danger">Hiện chưa có bài viết nào</div>
+      <?php endforeach; ?>
+      <?php else: ?>
+        <div class="alert alert-danger">Không có bài viết nào</div>
       <?php endif; ?>
+      </div>
     </div>
   </div>
-
 </div>
-</div>
-<!-- Kết thúc phần Tin mới và Tin tức ngẫu nhiên -->
+<!-- Kết thúc phần Tin mới -->
 
+<!-- Phần Tin tức ngẫu nhiên -->
+<div class="main-body">
+  <div class="container">
+    <div class="cat_news">
+      <h2 class="header">Tin tức ngẫu nhiên</h2>
+      <div class="row">
+        <?php
+        // Lấy 4 bài viết ngẫu nhiên từ cơ sở dữ liệu
+        $random_count = $common_data->select__random_posts_data(4)['count'];
+        $random_postsData = $common_data->select__random_posts_data(4)['row'];
+
+        // Nếu có bài viết thì hiển thị
+        if($random_count > 0):
+          foreach($random_postsData as $post):
+            $id              = $post['post_id'];
+            $title           = substr($post['title'], 0 , 100);
+            $content         = substr($post['content'], 0 , 100);
+            $author_fullname = $post['author_fullname'];
+            $img             = $post['img'];
+        ?>
+        <div class="col-md-3">
+          <div class="news-box">
+            <div class="img-box">
+              <div class="overlay"></div>
+              <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>">
+                <img class="img-fluid" src="<?php echo IMG_PATH_POST . $img; ?>"/>
+              </a>
+            </div>
+           <div class="news-box-body">
+             <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="d-block"><h5><?php echo $title; ?></h5></a>
+               <P><?php echo $content; ?></P>
+             <P><?php echo $author_fullname; ?></P>
+             <a href="<?php echo BASEURL; ?>/post/single/<?php echo $id; ?>" class="read-more">Đọc thêm</a>
+           </div>
+          </div>
+        </div>
+        <?php 
+          endforeach; 
+        else: ?>
+          <div class="alert alert-danger">Hiện chưa có bài viết nào</div>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Kết thúc phần Tin tức ngẫu nhiên -->
 
 <?php include $tpl . 'footer_content.php'; ?>
 <?php include $tpl . 'footer.php'; ob_end_flush(); ?>
