@@ -152,24 +152,52 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Skip if clicking on edit button
 		if(e.target.classList.contains('edit') || e.target.closest('.edit')) return;
 		
+		// Check if clicking on delete link
 		var a = e.target.closest('.delete a');
 		if(!a) return;
+		
+		// Stop event propagation to prevent conflicts with other handlers
 		e.preventDefault();
+		e.stopPropagation();
+		
 		// Extract id from href query
 		var m = a.href.match(/[?&]delete=(\d+)/);
 		var id = m ? m[1] : null;
 		if(!id) return;
 		if(!confirm('Bạn có chắc muốn xóa bình luận này?')) return;
+		
 		fetch(deleteEndpoint + '?id=' + encodeURIComponent(id), { method: 'DELETE', headers: { 'Accept': 'application/json' }})
 		.then(function(res){ return res.text().then(function(t){ return { ok: res.ok, text: t }; }); })
 		.then(function(payload){
 			var data = null; try { data = JSON.parse(payload.text); } catch(e){}
 			if(!data || !data.success){ alert((data && data.message) || 'Xóa bình luận thất bại'); return; }
-			// Remove the whole comment block (parent or child)
-			var parentBlock = a.closest('.parent');
-			var childBlock = a.closest('.child');
-			if(childBlock){ childBlock.remove(); }
-			else if(parentBlock){ parentBlock.remove(); }
+			
+			// Find the parent or child element to remove
+			// Use closest() which is more reliable
+			var elementToRemove = a.closest('.parent') || a.closest('.child');
+			
+			// Safety checks: ensure we found a valid element and it's within commentsList
+			// Also ensure we're not removing commentsList or comment-section
+			var commentSection = document.querySelector('.comment-section');
+			if(elementToRemove && 
+			   elementToRemove !== commentsList && 
+			   elementToRemove !== commentSection &&
+			   elementToRemove.parentElement !== null &&
+			   commentsList.contains(elementToRemove) &&
+			   (elementToRemove.classList.contains('parent') || elementToRemove.classList.contains('child'))){
+				// Additional check: make sure the parent is commentsList or a valid container
+				var parentOfElement = elementToRemove.parentElement;
+				if(parentOfElement === commentsList || parentOfElement.classList.contains('parent')){
+					// Remove the element
+					elementToRemove.remove();
+				} else {
+					// Something is wrong, reload the page
+					window.location.reload();
+				}
+			} else {
+				// If we can't find the element safely, reload the page
+				window.location.reload();
+			}
 		})
 		.catch(function(){ alert('Lỗi kết nối. Vui lòng thử lại.'); });
 	});

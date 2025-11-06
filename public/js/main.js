@@ -52,9 +52,10 @@ $(function(){
        $(this).next().slideToggle(200);
    });
 
-   $('.parent .option-box .edit').click(function(){
-       $(this).nextAll().slice(1, 2).slideToggle(200);
-   });
+   // Commented out to avoid conflict with comments.js handler
+   // $('.parent .option-box .edit').click(function(){
+   //     $(this).nextAll().slice(1, 2).slideToggle(200);
+   // });
 
   // END Click Btn
 
