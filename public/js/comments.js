@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				  '<span class="delete">' +
 				    '<a href="' + postUrlBase + '?delete=' + c.id + '">Xóa</a>' +
 				  '</span>' +
-				  '<form action="" method="POST" class="edit_comment_form">' +
+				  '<form action="" method="POST" class="edit_comment_form" style="display:none;">' +
 				    '<div class="form-group">' +
 				      '<h5>Chỉnh sửa bình luận</h5>' +
 				      '<input type="hidden" name="id_for_parent" value="0">' +
@@ -91,6 +91,25 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
+	// Delegated handler: click "Chỉnh sửa" button to show/hide edit form
+	commentsList.addEventListener('click', function(e){
+		if(e.target.classList.contains('edit') || e.target.closest('.edit')){
+			var editBtn = e.target.classList.contains('edit') ? e.target : e.target.closest('.edit');
+			var optionBox = editBtn.closest('.option-box');
+			if(!optionBox) return;
+			var editForm = optionBox.querySelector('.edit_comment_form');
+			if(!editForm) return;
+			e.preventDefault();
+			// Toggle display of edit form - check both inline style and computed style
+			var currentDisplay = editForm.style.display || window.getComputedStyle(editForm).display;
+			if(currentDisplay === 'none'){
+				editForm.style.display = 'block';
+			} else {
+				editForm.style.display = 'none';
+			}
+		}
+	});
+
 	// Delegated handler: edit parent/child comment
 	commentsList.addEventListener('submit', function(e){
 		var form = e.target;
@@ -115,19 +134,24 @@ document.addEventListener('DOMContentLoaded', function () {
 			if(!data || !data.success){ alert((data && data.message) || 'Cập nhật bình luận thất bại'); return; }
 			var c = data.data;
 			// Update rendered text
-			var bodyDiv = form.parentElement.parentElement.querySelector('.body p');
+			var bodyDiv = form.closest('.parent, .child').querySelector('.body p');
 			if(bodyDiv){ bodyDiv.textContent = c.comment_body; }
 			// Sync textarea
 			if(bodyField){ bodyField.value = c.comment_body; }
 			// Update date
-			var dateSpan = form.parentElement.parentElement.querySelector('.date');
+			var dateSpan = form.closest('.parent, .child').querySelector('.date');
 			if(dateSpan){ dateSpan.textContent = c.update_date || c.added_date || ''; }
+			// Hide form after successful update
+			form.style.display = 'none';
 		})
 		.catch(function(){ alert('Lỗi kết nối. Vui lòng thử lại.'); });
 	});
 
 	// Delegated handler: delete
 	commentsList.addEventListener('click', function(e){
+		// Skip if clicking on edit button
+		if(e.target.classList.contains('edit') || e.target.closest('.edit')) return;
+		
 		var a = e.target.closest('.delete a');
 		if(!a) return;
 		e.preventDefault();
@@ -187,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				  '<div class="option-box">' +
 				    '<span class="edit">Chỉnh sửa</span>' +
 				    '<span class="delete"><a href="' + baseUrl.replace(/\/$/, '') + '/post/single/' + (postIdVal || '') + '/?delete=' + c.id + '">Xóa</a></span>' +
-				    '<form action="" method="POST" class="edit_comment_form">' +
+				    '<form action="" method="POST" class="edit_comment_form" style="display:none;">' +
 				      '<div class="form-group">' +
 				        '<h5>Chỉnh sửa bình luận</h5>' +
 				        '<input type="hidden" name="id" value="' + c.id + '">' +
