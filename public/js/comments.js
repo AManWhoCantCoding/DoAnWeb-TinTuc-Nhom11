@@ -48,11 +48,37 @@ document.addEventListener('DOMContentLoaded', function () {
 			var c = data.data;
 			var parentDiv = document.createElement('div');
 			parentDiv.className = 'parent';
+			var postUrlBase = baseUrl.replace(/\/$/, '') + '/post/single/' + (postId || '') + '/';
 			parentDiv.innerHTML = ''+
 				'<img src="' + (c.profile_img || '') + '" width="50">' +
 				'<span class="author">' + (c.author_fullname || '') + '</span>' +
 				'<span class="date">' + (c.update_date || c.added_date || '') + '</span>' +
-				'<div class="body"><p>' + escapeHtml(c.comment_body || '') + '</p></div>';
+				'<div class="body"><p>' + escapeHtml(c.comment_body || '') + '</p></div>' +
+				'<div class="option-box">' +
+				  '<span class="edit">Chỉnh sửa</span>' +
+				  '<span class="delete">' +
+				    '<a href="' + postUrlBase + '?delete=' + c.id + '">Xóa</a>' +
+				  '</span>' +
+				  '<form action="" method="POST" class="edit_comment_form">' +
+				    '<div class="form-group">' +
+				      '<h5>Chỉnh sửa bình luận</h5>' +
+				      '<input type="hidden" name="id_for_parent" value="0">' +
+				      '<input type="hidden" name="id" value="' + c.id + '">' +
+				      '<textarea class="form-control" name="content_parent_edit">' + escapeHtml(c.comment_body || '') + '</textarea>' +
+				      '<input type="submit" name="edit_parent_comment" class="btn btn-primary" value="Cập nhật">' +
+				    '</div>' +
+				  '</form>' +
+				'</div>' +
+				'<span class="reply-head">Các trả lời</span>' +
+				'Chưa có trả lời nào cho bình luận này.' +
+				'<form action="" method="POST">' +
+				  '<input type="hidden" value="' + c.id + '" name="reply_parent_id">' +
+				  '<div class="form-group">' +
+				    '<h5>Trả lời bình luận</h5>' +
+				    '<textarea class="form-control" name="replay_comment_body"></textarea>' +
+				    '<input type="submit" class="btn btn-primary" value="Trả lời" name="replay_comment">' +
+				  '</div>' +
+				'</form>';
 
 			commentsList.insertBefore(parentDiv, commentsList.firstChild);
 			textarea.value = '';
