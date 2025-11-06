@@ -5,7 +5,7 @@ class post extends Framework{
   final public function __construct(){
     $this->auth = $this->model('auth');
     $this->posts = $this->model('posts');
-    $this->comment = $this->model('comments');
+    $this->comment = $this->model('comments_model');
   }
 
   final public function single(){
