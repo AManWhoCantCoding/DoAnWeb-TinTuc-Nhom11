@@ -25,7 +25,7 @@ include $tpl . 'header.php';
         <h2 class="text-center" style="margin: 30px 0;">Đổi mật khẩu</h2>
 
         <!-- Biểu mẫu đổi mật khẩu -->
-       <form action="<?php echo BASEURL; ?>/change_password/msg" method="POST">
+       <form action="<?php echo BASEURL; ?>/change_password/msg" method="POST" id="changePassForm">
 
          <!-- Hiển thị lỗi mật khẩu -->
          <?php if(isset($data['password_error'])): ?>
@@ -59,6 +59,7 @@ include $tpl . 'header.php';
 
          <!-- Nút gửi -->
          <input class="btn btn-primary" type="submit" value="Đổi mật khẩu">
+         <div id="changePassAlert" style="margin-top:10px; display:none;" class="alert" role="alert"></div>
         </form>
        </div> 
       </div>
