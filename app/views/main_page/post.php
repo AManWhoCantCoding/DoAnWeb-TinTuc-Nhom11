@@ -72,6 +72,7 @@ include $tpl . 'header.php';
 <!-- Kết thúc phần nội dung chính -->
 
 <!-- Phần Tin mới và Tin tức ngẫu nhiên -->
+<div class="main-body">
 <div class="container">
   <!-- Phần tin mới -->
   <div class="cat_news">
@@ -150,6 +151,8 @@ include $tpl . 'header.php';
       <?php endif; ?>
     </div>
   </div>
+
+</div>
 </div>
 <!-- Kết thúc phần Tin mới và Tin tức ngẫu nhiên -->
 
