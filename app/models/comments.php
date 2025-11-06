@@ -17,16 +17,14 @@ class comments extends DBconnect{
   }
 
   final public function add_comment($parent, $comment_body, $post_id, $user_id, $added_date){
-      $stmt = $this->connect()->prepare("INSERT INTO comments (parent, comment_body, post_id, user_id, added_date)
-      VALUES (?, ?, ?, ?, ?)");
+      $db = $this->connect();
+      $stmt = $db->prepare("INSERT INTO comments (parent, comment_body, post_id, user_id, added_date)
+      VALUES (?, ?, ?, ?, ?)" );
       $stmt->execute([$parent, $comment_body, $post_id, $user_id, $added_date]);
-      $count = $stmt->rowCount();
-      if($count > 0){
-        return $count;
+      if($stmt->rowCount() > 0){
+        return $db->lastInsertId();
       }
-      if($count <= 0){
-        return false;
-      }
+      return false;
   }
 
 
@@ -88,6 +86,23 @@ class comments extends DBconnect{
       if($count <= 0){
         return false;
       }
+  }
+
+  final public function get_comment_with_user_by_id($id){
+      $query = "SELECT comments.*,
+      users.profile_img as profile_img,
+      users.fullname as author_fullname
+      FROM comments
+      INNER JOIN users ON comments.user_id = users.id
+      WHERE comments.id = ? LIMIT 1";
+      $stmt  = $this->connect()->prepare($query);
+      $stmt->execute([$id]);
+      $count = $stmt->rowCount();
+      $row   = $stmt->fetch(PDO::FETCH_ASSOC);
+      if($count > 0){
+        return $row;
+      }
+      return false;
   }
 
   final public function delete_comment_with_parent($parent){
