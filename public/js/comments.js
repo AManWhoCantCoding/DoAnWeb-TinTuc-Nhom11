@@ -35,10 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		})
 		.then(function (payload) {
 			var data = null;
-			if (payload.contentType.indexOf('application/json') !== -1) {
-				try { data = JSON.parse(payload.text); } catch (e) {}
-			}
+			try { data = JSON.parse(payload.text); } catch (e) {}
 			if (!data) {
+				console.error('Non-JSON response from /comments/add:', payload);
 				alert('Máy chủ trả về phản hồi không hợp lệ.');
 				return;
 			}
