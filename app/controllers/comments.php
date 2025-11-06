@@ -8,6 +8,10 @@ class comments extends Framework{
 
 	// POST /comments/add
 	final public function add(){
+		// Ensure clean JSON output without any buffered/previous content
+		if (function_exists('ob_get_level')) {
+			while (ob_get_level() > 0) { ob_end_clean(); }
+		}
 		header('Content-Type: application/json; charset=utf-8');
 		if(!Session::check('id')){
 			http_response_code(401);
