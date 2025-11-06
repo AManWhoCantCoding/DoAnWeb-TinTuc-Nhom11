@@ -65,6 +65,7 @@ class comments extends Framework{
 				'added_date' => isset($comment['added_date']) ? $comment['added_date'] : $addedDate,
 			]
 		]);
+		exit();
 	}
 }
 
