@@ -300,7 +300,7 @@ body.member-page-body .overlay{
 .main-body .latest-news .news-box-body p{
   word-wrap: break-word;
   margin-top: 4px;
-  color: #4e2b2b;
+  color: #000;
   text-transform: capitalize;
 }
 .main-body .cat_news .news-box .news-box-body .read-more,
@@ -644,12 +644,41 @@ body.member-page-body .overlay{
     padding: 10px;
   }
 }
+/* Footer full width cho trang bài viết - break out khỏi container */
+body.post-page .main-body:last-of-type{
+  margin-bottom: 0;
+}
+body.post-page .footer {
+  width: calc(100vw - (100vw - 100%)) !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+body.post-page .footer .container{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  box-sizing: border-box;
+}
+body.post-page .footer .info{
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+body.post-page .footer .info .container{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  box-sizing: border-box;
+}
 /* end footer */
 /* Start Class my frameworke */
 
 
-h1,h2,h3,h4,h5,h6,
-{
+h1,h2,h3,h4,h5,h6{
   text-transform: capitalize;
 }
 .hidden{

@@ -59,7 +59,6 @@ include $tpl . 'header.php';
              <a class="join-us" href="<?php echo BASEURL; ?>/profileEdit" style="background-color: #c70e4eb0; color: white; padding: 5px 10px">chỉnh sửa hồ sơ</a>
              <a class="join-us" href="<?php echo BASEURL; ?>/change_password" style="background-color: #c70e4eb0; color: white; padding: 5px 10px">đổi mật khẩu</a>
              <a class="join-us" href="<?php echo BASEURL; ?>/show_profile/page/<?php echo Session::get('id'); ?>" style="background-color: #c70e4eb0; color: white; padding: 5px 10px">xem hồ sơ</a>
-             <a class="join-us" href="<?php echo BASEURL; ?>/add_post" style="background-color: #c70e4eb0; color: white; padding: 5px 10px">thêm bài viết</a>
              <a class="join-us" href="<?php echo BASEURL; ?>/Logout" style="background-color: #c70e4eb0; color: white; padding: 5px 10px">đăng xuất</a>
            <?php endif; ?>
          </div>

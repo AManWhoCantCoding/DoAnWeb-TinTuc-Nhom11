@@ -103,7 +103,6 @@
         <a class="join-us" href="<?php echo BASEURL; ?>/profileEdit">Chỉnh sửa hồ sơ</a>
         <a class="join-us" href="<?php echo BASEURL; ?>/change_password">Đổi mật khẩu</a>
         <a class="join-us" href="<?php echo BASEURL; ?>/show_profile/page/<?php echo Session::get('id'); ?>">Xem hồ sơ</a>
-        <a class="join-us" href="<?php echo BASEURL; ?>/add_post">Thêm bài viết</a>
         <a class="join-us" href="<?php echo BASEURL; ?>/Logout">Đăng xuất</a>
 
       <?php elseif(!Session::check('id') && !Session::check('ucode') && !Session::check('fb_user_id') ): ?>
