@@ -85,7 +85,7 @@ endif;
     <h4 class="d-inline-block flaot-right">Thêm bình luận</h4>
   </div>
 
-  <div class="comment-show">
+  <div class="comment-show" id="commentsList" data-post-id="<?php echo $post_id_for_comments; ?>" data-baseurl="<?php echo BASEURL; ?>">
     <!-- BẮT ĐẦU: HIỂN THỊ BÌNH LUẬN CHA -->
     <?php
     $get_parent_comments_data = $this->comment->get_commments_data($post_id_for_comments, "0");
@@ -199,11 +199,12 @@ endif;
 
     <!-- Form thêm bình luận mới -->
     <?php if(Session::check('id')){ ?>
-      <form action="" method="POST">
+      <form id="commentForm">
+        <input type="hidden" name="post_id" value="<?php echo $post_id_for_comments; ?>" />
         <div class="form-group">
           <h5>Thêm bình luận</h5>
-          <textarea class="form-control" name="parent_comment_body"></textarea>
-          <input type="submit" class="btn btn-primary" value="Gửi" name="parent_comment">
+          <textarea class="form-control" name="parent_comment_body" id="parent_comment_body"></textarea>
+          <button type="submit" class="btn btn-primary">Gửi</button>
         </div>
       </form>
     <?php }else{ ?>

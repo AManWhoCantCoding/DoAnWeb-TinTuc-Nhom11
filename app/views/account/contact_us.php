@@ -25,7 +25,7 @@ include $tpl . 'header.php';
 
        <h2 class="text-center">Liên hệ với chúng tôi</h2>
 
-      <form action="<?php echo BASEURL; ?>/contact_us/msg" method="POST" id="form">
+      <form action="<?php echo BASEURL; ?>/contact_us/msg" method="POST" id="contactForm">
         <?php
         if(isset($_COOKIE['email'])){
           $email_by_cookie = $_COOKIE['email'];
@@ -71,6 +71,7 @@ include $tpl . 'header.php';
 
 
         <input class="btn btn-primary d-block m-auto" type="submit" name="login" value="Gửi" style="margin-top: 10px !important">
+        <div id="contactAlert" style="margin-top:10px; display:none;" class="alert" role="alert"></div>
        </form>
     </div>
 
