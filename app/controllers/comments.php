@@ -3,7 +3,7 @@
 class comments extends Framework{
 
 	final public function __construct(){
-		$this->comment = $this->model('comments');
+		$this->comment = $this->model('comments_model');
 	}
 
 	// POST /comments/add
