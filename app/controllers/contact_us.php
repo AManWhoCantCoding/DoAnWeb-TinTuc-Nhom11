@@ -83,4 +83,55 @@ class contact_us extends Framework{
 
   } // end msg
 
+  // AJAX endpoint: POST /contact_us/ajax_msg
+  final public function ajax_msg(){
+    header('Content-Type: application/json; charset=utf-8');
+    if($_SERVER['REQUEST_METHOD'] !== 'POST'){
+      http_response_code(405);
+      echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+      return;
+    }
+
+    $payload = $_POST;
+    if(empty($payload)){
+      $raw = file_get_contents('php://input');
+      $decoded = json_decode($raw, true);
+      if(is_array($decoded)) $payload = $decoded;
+    }
+
+    $email    = isset($payload['email']) ? $payload['email'] : '';
+    $fullname = isset($payload['fullname']) ? $payload['fullname'] : '';
+    $phone    = isset($payload['phone']) ? $payload['phone'] : '';
+    $subject  = isset($payload['subject']) ? $payload['subject'] : '';
+    $created_at = date('Y-m-d H-i-s');
+
+    if(empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) == false){
+      http_response_code(400);
+      echo json_encode(['success' => false, 'message' => 'Email không hợp lệ']);
+      return;
+    }
+    if(empty($phone) || !is_numeric($phone)){
+      http_response_code(400);
+      echo json_encode(['success' => false, 'message' => 'Số điện thoại không hợp lệ']);
+      return;
+    }
+    if(strlen($fullname) > 40 || empty($fullname)){
+      http_response_code(400);
+      echo json_encode(['success' => false, 'message' => 'Họ tên không hợp lệ']);
+      return;
+    }
+    if(strlen($subject) > 200 || empty($subject)){
+      http_response_code(400);
+      echo json_encode(['success' => false, 'message' => 'Nội dung quá dài hoặc trống']);
+      return;
+    }
+
+    if($this->contact->add_contact($email, $fullname, $phone, $subject, $created_at) == 'success'){
+      echo json_encode(['success' => true, 'message' => 'Đã gửi liên hệ thành công']);
+    }else{
+      http_response_code(500);
+      echo json_encode(['success' => false, 'message' => 'Không thể gửi liên hệ']);
+    }
+  }
+
 } // end class reset_password

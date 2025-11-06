@@ -73,4 +73,57 @@ class change_password extends Framework{
     endif; // end $_SERVER['REQUEST_METHOD']
   }// end emethod msg
 
+  // AJAX endpoint: POST /change_password/ajax
+  final public function ajax(){
+    header('Content-Type: application/json; charset=utf-8');
+    if($_SERVER['REQUEST_METHOD'] !== 'POST'){
+      http_response_code(405);
+      echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+      return;
+    }
+
+    if(!Session::check('id')){
+      http_response_code(401);
+      echo json_encode(['success' => false, 'message' => 'Bạn cần đăng nhập']);
+      return;
+    }
+
+    $payload = $_POST;
+    if(empty($payload)){
+      $raw = file_get_contents('php://input');
+      $decoded = json_decode($raw, true);
+      if(is_array($decoded)) $payload = $decoded;
+    }
+
+    $old_password = isset($payload['old_password']) ? $payload['old_password'] : '';
+    $new_password = isset($payload['new_password']) ? $payload['new_password'] : '';
+    $repeat_new_password = isset($payload['repeat_new_password']) ? $payload['repeat_new_password'] : '';
+
+    $database_old_password = $this->auth->check_if_email_existis( Session::get('email') )['row']['password'];
+
+    if(!password_verify($old_password, $database_old_password)){
+      http_response_code(400);
+      echo json_encode(['success' => false, 'message' => 'Mật khẩu cũ không đúng']);
+      return;
+    }
+    if(strlen($new_password) > 20 || empty($new_password) || empty($repeat_new_password)){
+      http_response_code(400);
+      echo json_encode(['success' => false, 'message' => 'Mật khẩu không hợp lệ']);
+      return;
+    }
+    if($new_password !== $repeat_new_password){
+      http_response_code(400);
+      echo json_encode(['success' => false, 'message' => 'Mật khẩu mới không khớp']);
+      return;
+    }
+
+    $new_password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
+    if($this->auth->change_user_password( $new_password_hashed, Session::get('id') ) == 'success'){
+      echo json_encode(['success' => true, 'message' => 'Đổi mật khẩu thành công']);
+    }else{
+      http_response_code(500);
+      echo json_encode(['success' => false, 'message' => 'Không thể cập nhật mật khẩu']);
+    }
+  }
+
 } // end class change_password

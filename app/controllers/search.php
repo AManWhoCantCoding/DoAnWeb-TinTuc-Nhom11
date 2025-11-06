@@ -38,5 +38,30 @@ class search extends Framework{
      }
   }
 
+  // AJAX: GET /search/suggest?q=keyword
+  final public function suggest(){
+    header('Content-Type: application/json; charset=utf-8');
+    $q = isset($_GET['q']) ? trim($_GET['q']) : '';
+    if($q === ''){
+      echo json_encode(['success' => true, 'data' => []]);
+      return;
+    }
+    // reuse search with small limit
+    $res = $this->posts->select_search_posts($q, 0, 5);
+    $items = [];
+    if(isset($res['row'])){
+      foreach($res['row'] as $r){
+        $items[] = [
+          'id' => $r['post_id'],
+          'title' => $r['title'],
+          'img' => $r['img'],
+          'author_fullname' => $r['author_fullname'],
+          'category_name' => isset($r['category_name']) ? $r['category_name'] : ''
+        ];
+      }
+    }
+    echo json_encode(['success' => true, 'data' => $items]);
+  }
+
 
 }
