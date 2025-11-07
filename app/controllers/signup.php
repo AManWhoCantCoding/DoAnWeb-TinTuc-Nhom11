@@ -17,13 +17,14 @@ class signup extends Framework{
        if($_SERVER['REQUEST_METHOD']=="POST"){
          if(isset($_POST['g-recaptcha-response'])){
              $recaptcha = $_POST['g-recaptcha-response'];
+             $remoteIp = $_SERVER['REMOTE_ADDR'] ?? '';
                  if(!$recaptcha){
                    echo '<script>alert("please check captcha")</script>';
                    $this->view('account/signup'); // place to return to
                    die();
                  }else{
-                   $secret = RECAPTCHA_BACK_END;
-                   $url = "https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$recaptcha}";
+                  $secret = RECAPTCHA_BACK_END;
+                  $url = "https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$recaptcha}&remoteip={$remoteIp}";
                   $response = file_get_contents($url);
                   $responseKeys = json_decode($response, true);
                   if( isset($responseKeys['success']) && $responseKeys['success'] === true ){
@@ -119,7 +120,8 @@ class signup extends Framework{
                               $this->view('account/signup', $data);
                             }
                    }else{
-                     echo '<script>alert("please check captcha")</script>';
+                     $data['error'] = 'Captcha verification failed. Please try again.';
+                     $this->view('account/signup', $data);
                    } // end $responseKeys['success']
              } // end !$recaptcha
          } // end $_POST['g-recaptcha-response']

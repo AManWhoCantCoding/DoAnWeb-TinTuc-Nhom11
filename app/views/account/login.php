@@ -64,7 +64,10 @@ include $tpl . 'header.php';
             <!-- Mã xác minh reCAPTCHA -->
             <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_FRONT_END; ?>"></div>
 
-            <input class="btn btn-primary d-block m-auto" type="submit" name="login" value="Đăng nhập" style="margin-top: 10px !important">
+            <div class="d-flex flex-column align-items-center">
+              <input class="btn btn-primary w-100" type="submit" name="login" value="Đăng nhập" style="max-width: 260px; margin-top: 10px !important">
+              <a class="btn btn-outline-secondary w-100 mt-2" style="max-width: 260px;" href="<?php echo BASEURL; ?>/signup">Tạo tài khoản mới</a>
+            </div>
           </form>
 
         </div>

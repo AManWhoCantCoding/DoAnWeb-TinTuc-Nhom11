@@ -53,18 +53,7 @@ include $tpl . 'header.php';
                  Danh mục:
                  <a href="<?php echo BASEURL; ?>/categories/posts/<?php echo $category_id; ?>/?page=1"><?php echo $category_name; ?></a>
                </div>
-               <div class="categories"><i class="fa fa-tags"></i>
-                 Thẻ:
-                 <?php
-                 $tags = str_replace(' ', '', $tags);
-                 $tags = explode(',', $tags);
-                 foreach($tags as $tag):
-                 ?>
-                 <a href="<?php echo BASEURL; ?>/tags/posts/<?php echo $tag; ?>/?page=1"><?php echo $tag; ?></a>
-                 <?php
-                 endforeach;
-                 ?>
-               </div>
+              
              </div>
           </div>
 

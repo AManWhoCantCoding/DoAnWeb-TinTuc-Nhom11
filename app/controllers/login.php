@@ -16,6 +16,7 @@ class login extends Framework{
 
     if(isset($_POST['g-recaptcha-response'])){
         $recaptcha = $_POST['g-recaptcha-response'];
+        $remoteIp = $_SERVER['REMOTE_ADDR'] ?? '';
         if(!$recaptcha){
           echo '<script>alert("please check captcha")</script>';
           $this->view('account/login');
@@ -23,7 +24,7 @@ class login extends Framework{
         }else{
 
             $secret = RECAPTCHA_BACK_END;
-            $url = "https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$recaptcha}";
+            $url = "https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$recaptcha}&remoteip={$remoteIp}";
             $response = file_get_contents($url);
             $responseKeys = json_decode($response, true);
             if( isset($responseKeys['success']) && $responseKeys['success'] === true ){
@@ -60,7 +61,8 @@ class login extends Framework{
                   } // end check count > 0
 
                 }else{
-                    echo '<script>alert("please check captcha")</script>';
+                    $data['error'] = 'Captcha verification failed. Please try again.';
+                    $this->view('account/login', $data);
                 }  // end $responseKeys['success']
        } // end if !$recaptcha
     } // end 'g-recaptcha-response' request

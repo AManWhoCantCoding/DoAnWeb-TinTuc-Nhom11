@@ -2,7 +2,7 @@
 ob_start();
 include IINT_VIEWS;
 if(Session::check('admin_id')):
-  $path->redirect('login');
+  $path->redirect('dashboard');
 endif;
 $format->page_title = 'Đăng nhập';
 include $tpl . 'header.php';

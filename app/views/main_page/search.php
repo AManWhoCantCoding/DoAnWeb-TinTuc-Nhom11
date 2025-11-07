@@ -87,16 +87,7 @@ if ($page > $number_of_page) {
                        </a>
                      </div>
 
-                     <div class="categories"><i class="fa fa-tags"></i>
-                       Thẻ:
-                       <?php
-                       $tags = str_replace(' ', '', $tags);
-                       $tags = explode(',', $tags);
-                       foreach ($tags as $tag):
-                       ?>
-                       <a href="<?php echo BASEURL; ?>/tags/posts/<?php echo $tag; ?>"><?php echo $tag; ?></a>
-                       <?php endforeach; ?>
-                     </div>
+                    
                    </div>
              </div>
            </div>
