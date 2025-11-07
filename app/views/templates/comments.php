@@ -102,7 +102,7 @@ endif;
         $_SESSION['parent_comment_id'] = $comment_parent_id;
     ?>
       <!-- Bình luận cha -->
-      <div class="parent">
+      <div class="parent" data-comment-id="<?php echo $comment_parent_id; ?>">
         <img src="<?php echo $profile_img; ?>" width="50">
         <span class="author"><?php echo $author; ?></span>
         <span class="date"><?php echo $updated_at; ?></span>
@@ -153,7 +153,7 @@ endif;
             $author = $author_fullname;
             $updated_at = $child_comment_data['update_date'];
         ?>
-        <div class="child">
+        <div class="child" data-comment-id="<?php echo $child_comment_id; ?>">
           <div class="reply">
             <img src="<?php echo $profile_img; ?>" width="50">
             <span class="author"><?php echo $author; ?></span>

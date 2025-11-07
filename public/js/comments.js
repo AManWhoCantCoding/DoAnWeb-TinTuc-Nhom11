@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			var c = data.data;
 			var parentDiv = document.createElement('div');
 			parentDiv.className = 'parent';
+			parentDiv.setAttribute('data-comment-id', c.id);
 			var postUrlBase = baseUrl.replace(/\/$/, '') + '/post/single/' + (postId || '') + '/';
 			parentDiv.innerHTML = ''+
 				'<img src="' + (c.profile_img || '') + '" width="50">' +
@@ -172,34 +173,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			var data = null; try { data = JSON.parse(payload.text); } catch(e){}
 			if(!data || !data.success){ alert((data && data.message) || 'Xóa bình luận thất bại'); return; }
 			
-			// Find the parent or child element to remove
-			// Use closest() which is more reliable
-			var elementToRemove = a.closest('.parent') || a.closest('.child');
-			
-			// Safety checks: ensure we found a valid element and it's within commentsList
-			// Also ensure we're not removing commentsList or comment-section
-			var commentSection = document.querySelector('.comment-section');
-			if(elementToRemove && 
-			   elementToRemove !== commentsList && 
-			   elementToRemove !== commentSection &&
-			   elementToRemove.parentElement !== null &&
-			   commentsList.contains(elementToRemove) &&
-			   (elementToRemove.classList.contains('parent') || elementToRemove.classList.contains('child'))){
-				// Additional check: make sure the parent is commentsList or a valid container
-				var parentOfElement = elementToRemove.parentElement;
-				if(parentOfElement === commentsList || parentOfElement.classList.contains('parent')){
-					// Remove the element
-					elementToRemove.remove();
-				} else {
-					// Something is wrong, reload the page
-					window.location.reload();
-				}
-			} else {
-				// If we can't find the element safely, reload the page
-				window.location.reload();
-			}
+			// Reload page to ensure proper HTML structure is maintained
+			// This prevents issues with complex nested comment structures
+			window.location.reload();
 		})
-		.catch(function(){ alert('Lỗi kết nối. Vui lòng thử lại.'); });
+		.catch(function(err){ 
+			console.error('Delete error:', err);
+			alert('Lỗi kết nối. Vui lòng thử lại.'); 
+		});
 	});
 
 	// Delegated handler: reply submit under a parent
@@ -230,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Insert a new child block after the form's container
 			var child = document.createElement('div');
 			child.className = 'child';
+			child.setAttribute('data-comment-id', c.id);
 			child.innerHTML = ''+
 				'<div class="reply">' +
 				  '<img src="' + (c.profile_img || '') + '" width="50">' +
