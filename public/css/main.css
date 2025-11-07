@@ -258,6 +258,10 @@ body.member-page-body .overlay{
 .main-body{
   margin: 40px 0;
   overflow: hidden;
+  clear: both;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 .main-body a{
   text-decoration: none;
@@ -332,6 +336,12 @@ body.member-page-body .overlay{
   background: red;
   box-shadow: 1px 1px 14px 4px red;
   padding: 10px 20px;
+  position: relative;
+  overflow: visible;
+  clear: both;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 .comment-section .header{
   margin-top: 10px;
@@ -343,6 +353,12 @@ body.member-page-body .overlay{
   margin: 5px 10px;
   background: #efefef;
   border-radius: 10px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  box-sizing: border-box;
+  clear: both;
 }
 .comment-section .comment-show .parent{
   background: #c7c7c7;
@@ -423,6 +439,112 @@ body.member-page-body .overlay{
   background: #922323;
   box-shadow: 0px 1px 4px 1px #fff;
   color: #fff;
+}
+
+/* Đảm bảo các phần sau comment section không bị ảnh hưởng */
+.main-body:has(.comment-section) + .main-body,
+.main-body:has(.comment-section) ~ .main-body {
+  clear: both;
+  position: relative;
+  z-index: 1;
+  overflow: visible !important;
+  display: block;
+  width: 100%;
+}
+
+/* Fallback cho trình duyệt không hỗ trợ :has() */
+.main-body.comment-section-container + .main-body,
+.main-body.comment-section-container ~ .main-body {
+  clear: both;
+  position: relative;
+  z-index: 1;
+  overflow: visible !important;
+  display: block;
+  width: 100%;
+}
+
+/* Đảm bảo footer không bị ảnh hưởng */
+.main-body.comment-section-container ~ .footer,
+.main-body:has(.comment-section) ~ .footer {
+  clear: both;
+  position: relative;
+  z-index: 1;
+  overflow: visible !important;
+  display: block;
+  width: 100%;
+}
+
+/* Tách biệt các section độc lập */
+.comment-section-wrapper {
+  clear: both !important;
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box;
+  overflow: visible !important;
+  z-index: 1 !important;
+}
+
+.latest-news-section,
+.random-news-section,
+.footer-section {
+  clear: both !important;
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box;
+  overflow: visible !important;
+  z-index: 1 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Đảm bảo các section sau comment section không bị ảnh hưởng */
+.comment-section-wrapper ~ .latest-news-section,
+.comment-section-wrapper ~ .random-news-section,
+.comment-section-wrapper ~ .footer-section,
+.comment-section-container ~ .latest-news-section,
+.comment-section-container ~ .random-news-section,
+.comment-section-container ~ .footer-section,
+.main-body:has(.comment-section) ~ .latest-news-section,
+.main-body:has(.comment-section) ~ .random-news-section,
+.main-body:has(.comment-section) ~ .footer-section {
+  clear: both !important;
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: visible !important;
+  display: block !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+}
+
+/* Đảm bảo main-body trong các section độc lập */
+.comment-section-wrapper .main-body {
+  overflow: visible !important;
+  clear: both !important;
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.latest-news-section .main-body,
+.random-news-section .main-body {
+  overflow: visible !important;
+  clear: both !important;
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Đảm bảo footer section độc lập */
+.footer-section {
+  margin-top: 0;
+  padding-top: 0;
+  clear: both;
+  position: relative;
+  z-index: 1;
 }
 
 .main-body .sidebar.secendry{
