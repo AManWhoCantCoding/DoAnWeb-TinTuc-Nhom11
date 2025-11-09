@@ -252,7 +252,7 @@ class messages extends Framework{
       'row'   => $this->message->select_message_data($start_from, $results_per_page)['row']
     ];
     if($this->message->delete_message($id) == 'success'){
-      $data['success'] = 'delete success';
+      $data['success'] = 'Xóa thành công';
       $this->view('contact/messages', $data);
     }else{
       $data['error']   = 'there is an error when delete data';

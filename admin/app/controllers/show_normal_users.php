@@ -51,7 +51,7 @@ class show_normal_users extends framework{
     ];
     if(isset($id) && is_numeric($id) && !empty($id)){
       if($this->auth->delete_user($id) == 'success'){
-        $data['success'] = 'delete success';
+        $data['success'] = 'Xóa thành công';
         $this->view('account/show_normal_users', $data);
       }else{
         $data['error'] = 'error where try deleting';

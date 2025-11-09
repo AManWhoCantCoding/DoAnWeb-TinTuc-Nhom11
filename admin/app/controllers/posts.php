@@ -255,7 +255,7 @@ class posts extends Framework{
       'row'   => $this->post->select_posts_data($start_from, $results_per_page)['row']
     ];
     if($this->post->delete_post($id) == 'success'){
-      $data['success'] = 'delete success';
+      $data['success'] = 'Xóa thành công';
       $this->view('posts/posts', $data);
     }else{
       $data['error']   = 'there is an error when delete data';
