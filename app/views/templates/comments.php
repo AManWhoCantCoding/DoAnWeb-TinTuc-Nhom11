@@ -119,7 +119,7 @@ endif;
           </span>
 
           <!-- Form chỉnh sửa bình luận cha -->
-          <form action="" method="POST" class="edit_comment_form">
+          <form action="" method="POST" class="edit_comment_form" style="display:none;">
             <div class="form-group">
               <h5>Chỉnh sửa bình luận</h5>
               <input type="hidden" name="id_for_parent" value="<?php echo "0"; ?>">
@@ -130,70 +130,77 @@ endif;
           </form>
         </div>
 
-        <span class="reply-head">Các trả lời</span>
-        <?php
-        $comments_number = $this->comment->get_comments_number($post_id_for_comments, $comment_parent_id);
-        if($comments_number > 0){
-          echo 'Số trả lời: ' . $comments_number;
-        }else{
-          echo "Chưa có trả lời nào cho bình luận này.";
-        }
-        ?>
+        <span class="reply-head" style="cursor: pointer;">Các trả lời</span>
+        <div class="reply-section" style="display: none;">
+          <div class="reply-count">
+            <?php
+            $comments_number = $this->comment->get_comments_number($post_id_for_comments, $comment_parent_id);
+            if($comments_number > 0){
+              echo 'Số trả lời: ' . $comments_number;
+            }else{
+              echo "Chưa có trả lời nào cho bình luận này.";
+            }
+            ?>
+          </div>
 
-        <!-- BẮT ĐẦU: BÌNH LUẬN CON -->
-        <?php
-        $get_child_comments_data = $this->comment->get_commments_data($post_id_for_comments, $comment_parent_id);
-        if($get_child_comments_data !== false):
-          foreach($get_child_comments_data as $child_comment_data):
-            $child_comment_id = $child_comment_data['id'];
-            $comment_parent_id = $child_comment_data['parent'];
-            $comment_body = $child_comment_data['comment_body'];
-            $profile_img = $child_comment_data['profile_img'];
-            $author_fullname = $parent_comment_data['author_fullname'];
-            $author = $author_fullname;
-            $updated_at = $child_comment_data['update_date'];
-        ?>
-        <div class="child" data-comment-id="<?php echo $child_comment_id; ?>">
-          <div class="reply">
-            <img src="<?php echo $profile_img; ?>" width="50">
-            <span class="author"><?php echo $author; ?></span>
-            <span class="date"><?php echo $updated_at; ?></span>
-            <div class="body">
-              <p><?php echo $comment_body; ?></p>
-            </div>
+          <!-- BẮT ĐẦU: BÌNH LUẬN CON -->
+          <?php
+          $get_child_comments_data = $this->comment->get_commments_data($post_id_for_comments, $comment_parent_id);
+          if($get_child_comments_data !== false):
+            foreach($get_child_comments_data as $child_comment_data):
+              $child_comment_id = $child_comment_data['id'];
+              $comment_parent_id = $child_comment_data['parent'];
+              $comment_body = $child_comment_data['comment_body'];
+              $profile_img = $child_comment_data['profile_img'];
+              $author_fullname = $parent_comment_data['author_fullname'];
+              $author = $author_fullname;
+              $updated_at = $child_comment_data['update_date'];
+          ?>
+          <div class="child" data-comment-id="<?php echo $child_comment_id; ?>">
+            <div class="reply">
+              <img src="<?php echo $profile_img; ?>" width="50">
+              <span class="author"><?php echo $author; ?></span>
+              <span class="date"><?php echo $updated_at; ?></span>
+              <div class="body">
+                <p><?php echo $comment_body; ?></p>
+              </div>
 
-            <div class="option-box">
-              <span class="edit">Chỉnh sửa</span>
-              <span class="delete">
-                <a href="<?PHP echo  BASEURL; ?>/post/single/<?php echo $post_id_for_comments; ?>/?delete=<?php echo $child_comment_id; ?>">
-                  Xóa
-                </a>
-              </span>
+              <div class="option-box">
+                <span class="edit">Chỉnh sửa</span>
+                <span class="delete">
+                  <a href="<?PHP echo  BASEURL; ?>/post/single/<?php echo $post_id_for_comments; ?>/?delete=<?php echo $child_comment_id; ?>">
+                    Xóa
+                  </a>
+                </span>
 
-              <!-- Form chỉnh sửa bình luận con -->
-              <form action="" method="POST" class="edit_comment_form">
-                <div class="form-group">
-                  <h5>Chỉnh sửa bình luận</h5>
-                  <input type="hidden" name="id" value="<?php echo $child_comment_id; ?>">
-                  <input type="hidden" name="parent_id" value="<?php echo $comment_parent_id; ?>">
-                  <textarea class="form-control" name="chlid_comment_body"><?php echo $comment_body; ?></textarea>
-                  <input type="submit" name="edit_child" class="btn btn-primary" value="Cập nhật">
-                </div>
-              </form>
+                <!-- Form chỉnh sửa bình luận con -->
+                <form action="" method="POST" class="edit_comment_form" style="display:none;">
+                  <div class="form-group">
+                    <h5>Chỉnh sửa bình luận</h5>
+                    <input type="hidden" name="id" value="<?php echo $child_comment_id; ?>">
+                    <input type="hidden" name="parent_id" value="<?php echo $comment_parent_id; ?>">
+                    <textarea class="form-control" name="chlid_comment_body"><?php echo $comment_body; ?></textarea>
+                    <input type="submit" name="edit_child" class="btn btn-primary" value="Cập nhật">
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-      <?php endforeach; endif; // Kết thúc bình luận con ?>
+          <?php endforeach; endif; // Kết thúc bình luận con ?>
 
-      <!-- Form trả lời cho bình luận cha -->
-      <form action="" method="POST">
-        <input type="hidden" value="<?php echo $_SESSION['parent_comment_id']; ?>" name="reply_parent_id"/>
-        <div class="form-group">
-          <h5>Trả lời bình luận</h5>
-          <textarea class="form-control" name="replay_comment_body"></textarea>
-          <input type="submit" class="btn btn-primary" value="Trả lời" name="replay_comment">
+          <!-- Form trả lời cho bình luận cha -->
+          <form action="" method="POST" class="reply-form">
+            <input type="hidden" value="<?php echo $_SESSION['parent_comment_id']; ?>" name="reply_parent_id"/>
+            <div class="form-group">
+              <h5>Trả lời bình luận</h5>
+              <textarea class="form-control" name="replay_comment_body"></textarea>
+              <input type="submit" class="btn btn-primary" value="Trả lời" name="replay_comment">
+            </div>
+          </form>
         </div>
-      </form>
+        <!-- Kết thúc reply-section -->
+      </div>
+      <!-- Kết thúc bình luận cha -->
 
     <?php endforeach; endif; // Kết thúc bình luận cha ?>
 

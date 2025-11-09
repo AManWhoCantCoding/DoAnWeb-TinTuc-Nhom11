@@ -34,7 +34,7 @@ include $tpl . 'header.php';
       <div class="col-md-9" style="margin-top: 50px;">
         <h5><?php echo $title; ?></h5>
         <div class="content">
-          <p><?php echo $content; ?></p>
+          <?php echo $content; ?>
         </div>
         <i class="fa fa-calendar" style="margin-right: 10px"></i><span class="date"><?php echo $date_diff; ?></span><br>
         <i class="fa fa-user" style="margin-right: 10px"></i><span class="author"><?php echo $author_fullname; ?></span>

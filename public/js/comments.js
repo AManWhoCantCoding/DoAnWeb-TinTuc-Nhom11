@@ -73,18 +73,27 @@ document.addEventListener('DOMContentLoaded', function () {
 				    '</div>' +
 				  '</form>' +
 				'</div>' +
-				'<span class="reply-head">Các trả lời</span>' +
-				'Chưa có trả lời nào cho bình luận này.' +
-				'<form action="" method="POST">' +
-				  '<input type="hidden" value="' + c.id + '" name="reply_parent_id">' +
-				  '<div class="form-group">' +
-				    '<h5>Trả lời bình luận</h5>' +
-				    '<textarea class="form-control" name="replay_comment_body"></textarea>' +
-				    '<input type="submit" class="btn btn-primary" value="Trả lời" name="replay_comment">' +
-				  '</div>' +
-				'</form>';
+				'<span class="reply-head" style="cursor: pointer;">Các trả lời</span>' +
+				'<div class="reply-section" style="display: none;">' +
+				  '<div class="reply-count">Chưa có trả lời nào cho bình luận này.</div>' +
+				  '<form action="" method="POST" class="reply-form">' +
+				    '<input type="hidden" value="' + c.id + '" name="reply_parent_id">' +
+				    '<div class="form-group">' +
+				      '<h5>Trả lời bình luận</h5>' +
+				      '<textarea class="form-control" name="replay_comment_body"></textarea>' +
+				      '<input type="submit" class="btn btn-primary" value="Trả lời" name="replay_comment">' +
+				    '</div>' +
+				  '</form>' +
+				'</div>';
 
 			commentsList.insertBefore(parentDiv, commentsList.firstChild);
+			
+			// Đảm bảo reply-section được ẩn sau khi insert
+			var newReplySection = parentDiv.querySelector('.reply-section');
+			if(newReplySection){
+				newReplySection.style.display = 'none';
+			}
+			
 			textarea.value = '';
 		})
 		.catch(function () {
@@ -153,6 +162,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Skip if clicking on edit button
 		if(e.target.classList.contains('edit') || e.target.closest('.edit')) return;
 		
+		// Skip if clicking on reply-head
+		if(e.target.classList.contains('reply-head') || e.target.closest('.reply-head')) return;
+		
 		// Check if clicking on delete link
 		var a = e.target.closest('.delete a');
 		if(!a) return;
@@ -183,10 +195,51 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
+	// Delegated handler: toggle reply section when clicking "Các trả lời"
+	commentsList.addEventListener('click', function(e){
+		// Chỉ xử lý khi click trực tiếp vào reply-head hoặc phần tử con của nó
+		var replyHead = null;
+		if(e.target.classList.contains('reply-head')){
+			replyHead = e.target;
+		} else if(e.target.closest && e.target.closest('.reply-head')){
+			replyHead = e.target.closest('.reply-head');
+		}
+		
+		// Nếu không phải reply-head thì bỏ qua
+		if(!replyHead) return;
+		
+		// Tránh xung đột với các handler khác
+		e.preventDefault();
+		e.stopPropagation();
+		
+		var parentDiv = replyHead.closest('.parent');
+		if(!parentDiv) return;
+		
+		var replySection = parentDiv.querySelector('.reply-section');
+		if(!replySection) return;
+		
+		// Toggle display - ưu tiên inline style
+		var currentDisplay = replySection.style.display;
+		// Nếu không có inline style, check computed style
+		if(!currentDisplay || currentDisplay === ''){
+			currentDisplay = window.getComputedStyle(replySection).display;
+		}
+		
+		// Toggle - đảm bảo dùng inline style để override mọi CSS
+		if(currentDisplay === 'none' || currentDisplay === ''){
+			replySection.style.display = 'block';
+		} else {
+			replySection.style.display = 'none';
+		}
+		
+		return false;
+	});
+
 	// Delegated handler: reply submit under a parent
 	commentsList.addEventListener('submit', function(e){
 		var form = e.target;
 		if(form.classList.contains('edit_comment_form')) return; // handled above
+		if(!form.classList.contains('reply-form')) return; // only handle reply forms
 		var replyParent = form.querySelector('input[name="reply_parent_id"]');
 		if(!replyParent) return;
 		e.preventDefault();
@@ -207,8 +260,22 @@ document.addEventListener('DOMContentLoaded', function () {
 			if(!data || !data.success){ alert((data && data.message) || 'Trả lời bình luận thất bại'); return; }
 
 			var c = data.data;
-			var replyWrapper = form.parentElement.querySelector('.child');
-			// Insert a new child block after the form's container
+			var replySection = form.closest('.reply-section');
+			var parentDiv = form.closest('.parent');
+			if(!parentDiv || !replySection) return;
+
+			// Update reply count
+			var replyCount = replySection.querySelector('.reply-count');
+			if(replyCount){
+				var existingCount = parentDiv.querySelectorAll('.child').length;
+				if(existingCount === 0){
+					replyCount.textContent = 'Số trả lời: 1';
+				} else {
+					replyCount.textContent = 'Số trả lời: ' + (existingCount + 1);
+				}
+			}
+
+			// Insert a new child block in the reply section, before the form
 			var child = document.createElement('div');
 			child.className = 'child';
 			child.setAttribute('data-comment-id', c.id);
@@ -232,8 +299,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				    '</form>' +
 				  '</div>' +
 				'</div>';
-			// Place the child before the reply form (so replies appear above form similar to server order)
-			form.parentElement.insertBefore(child, form);
+			// Place the child before the reply form
+			replySection.insertBefore(child, form);
 			if(textarea){ textarea.value = ''; }
 		})
 		.catch(function(){ alert('Lỗi kết nối. Vui lòng thử lại.'); });

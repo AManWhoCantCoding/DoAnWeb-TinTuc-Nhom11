@@ -58,7 +58,8 @@ class posts extends Framework{
 
                // if you use ckeditor do not use these filter
                $title         = $this->filter_data($title, FILTER_SANITIZE_STRING);
-               $content       = $this->filter_data($content, FILTER_SANITIZE_STRING);
+               // Không filter content vì CKEditor tạo ra HTML, cần giữ nguyên định dạng
+               // $content sẽ giữ nguyên HTML từ CKEditor
                $category_id   = $this->filter_data($category_id, FILTER_SANITIZE_NUMBER_INT);
                $author_id     = $this->filter_data($author_id, FILTER_SANITIZE_NUMBER_INT);
 
@@ -159,7 +160,8 @@ class posts extends Framework{
         $author_id     = $_POST['author_id'];
 
         $title         = $this->filter_data($title, FILTER_SANITIZE_STRING);
-        $content       = $this->filter_data($content, FILTER_SANITIZE_STRING);
+        // Không filter content vì CKEditor tạo ra HTML, cần giữ nguyên định dạng
+        // $content sẽ giữ nguyên HTML từ CKEditor
         $category_id   = $this->filter_data($category_id, FILTER_SANITIZE_NUMBER_INT);
         $author_id     = $this->filter_data($author_id, FILTER_SANITIZE_NUMBER_INT);
 

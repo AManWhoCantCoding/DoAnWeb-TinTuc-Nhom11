@@ -349,7 +349,7 @@ body.member-page-body .overlay{
 }
 .comment-section .comment-show{
   display: none;
-  padding: 3px 10px;
+  padding: 10px;
   margin: 5px 10px;
   background: #efefef;
   border-radius: 10px;
@@ -360,28 +360,67 @@ body.member-page-body .overlay{
   box-sizing: border-box;
   clear: both;
 }
+.comment-section .comment-show::after{
+  content: "";
+  display: table;
+  clear: both;
+}
 .comment-section .comment-show .parent{
   background: #c7c7c7;
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  margin-left: 0;
+  margin-right: 0;
+  display: block;
+  width: 100%;
+  clear: both !important;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid #b0b0b0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  float: none !important;
+}
+.comment-section .comment-show .parent::after{
+  content: "";
+  display: table;
+  clear: both;
 }
 .comment-section .comment-show .parent img{
- width: 50;
- border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: top;
+  float: left;
+  margin-right: 10px;
 }
 .comment-section .comment-show .parent .author{
-  margin-left: 10px;
+  margin-left: 0;
   font-size: 16px;
   font-weight: bold;
+  display: inline-block;
+  vertical-align: top;
 }
 .comment-section .comment-show .parent .date{
   font-size: 13px;
   font-weight: 500;
   margin-left: 5px;
+  display: inline-block;
+  vertical-align: top;
 }
 .comment-section .comment-show .parent .body{
   margin-top: 6px;
+  clear: both;
+  display: block;
+  width: 100%;
+}
+.comment-section .comment-show .parent .option-box{
+  clear: both;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
 }
 .comment-section .comment-show .parent .option-box form{
   display: none;
@@ -393,18 +432,14 @@ body.member-page-body .overlay{
   padding: 0 20px;
   background: #ce4e32;
   transition: .3s;
+  display: inline-block;
+  margin-right: 5px;
 }
 .comment-section .comment-show .parent .option-box span:hover{
   background: #9c4c39;
 }
 .comment-section .comment-show .parent .option-box span a{
   color: #fff;
-}
-.comment-section .comment-show .parent .child .reply{
-  background: #ebebeb;
-  padding: 5px 10px;
-  border-radius: 10px;
-  margin-bottom: 10px;
 }
 .comment-section .comment-show .parent .reply-head{
   display: inline-block;
@@ -414,6 +449,85 @@ body.member-page-body .overlay{
   color: #fff;
   cursor: pointer;
   transition: .3s;
+  clear: both;
+}
+.comment-section .comment-show .parent .reply-section{
+  clear: both;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+.comment-section .comment-show .parent .reply-section .reply-count{
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  clear: both;
+}
+.comment-section .comment-show .parent .reply-section .reply-form{
+  display: block;
+  width: 100%;
+  clear: both;
+  margin-top: 10px;
+}
+.comment-section .comment-show .parent .reply-section .reply-form .form-group{
+  display: block;
+  width: 100%;
+  clear: both;
+}
+.comment-section .comment-show .parent .child{
+  display: block;
+  width: 100%;
+  padding-left: 20px;
+  margin-top: 5px;
+  clear: both;
+  position: relative;
+  box-sizing: border-box;
+}
+.comment-section .comment-show .parent .child .reply{
+  background: #ebebeb;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  clear: both;
+}
+.comment-section .comment-show .parent .child .reply img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: top;
+  float: left;
+  margin-right: 10px;
+}
+.comment-section .comment-show .parent .child .reply .author{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 0;
+}
+.comment-section .comment-show .parent .child .reply .date{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 5px;
+}
+.comment-section .comment-show .parent .child .reply .body{
+  clear: both;
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+}
+.comment-section .comment-show .parent .child .reply .option-box{
+  clear: both;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+.comment-section .comment-show .parent .child .reply .option-box span{
+  display: inline-block;
+  margin-right: 5px;
 }
 .comment-section .comment-show .parent .child form input[type="submit"],
 .comment-section .comment-show form input[type="submit"]{
@@ -422,11 +536,6 @@ body.member-page-body .overlay{
 }
 .comment-section .comment-show .parent .reply-head:hover{
   background: #e23636;
-}
-.comment-section .comment-show .parent .child{
-  /* display: none; */
-  padding-left: 20px;
-  margin-top: 5px;
 }
 .comment-section a.create_account{
   background: #cf9494;
