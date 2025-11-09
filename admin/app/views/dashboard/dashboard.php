@@ -112,7 +112,6 @@ include $tpl . 'header.php'; // Gọi phần đầu trang
               <img src="<?php echo IMG_PATH_POST . $postData['img']; ?>" width="50">
               <span class="title"><?php echo $postData['title']; ?></span>
               <p class="body">
-              <span class="cat d-block" style="color: black;">Thẻ: <?php echo $postData['tags']; ?></span>
               <span class="body d-block"><?php echo substr($postData['content'], 0, 200) . "..."; ?></span>
               <a href="<?php echo ADMINSITE; ?>/posts/show/<?php echo $postData['id']; ?>" class="btn btn-success">Xem</a>
               <p>
