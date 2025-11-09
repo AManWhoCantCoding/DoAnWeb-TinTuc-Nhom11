@@ -143,7 +143,7 @@ class categories extends Framework{
       'row'   => $this->category->select_categories_data()['row']
     ];
     if($this->category->delete_category($id) == 'success'){
-      $data['success'] = 'delete success';
+      $data['success'] = 'Xóa thành công';
       $this->view('categories/categories', $data);
     }else{
       $data['error']   = 'there is an error when delete data';

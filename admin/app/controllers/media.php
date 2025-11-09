@@ -133,7 +133,7 @@ class media extends Framework{
       'row'   => $this->media->select_media_data()['row']
     ];
     if($this->media->delete_media($id) == 'success'){
-      $data['success'] = 'delete success';
+      $data['success'] = 'Xóa thành công';
       $this->view('media/media', $data);
     }else{
       $data['error']   = 'there is an error when delete data';
