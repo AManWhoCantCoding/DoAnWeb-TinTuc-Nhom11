@@ -51,15 +51,6 @@ include $tpl . 'header.php';
          </div>
 
          <div class="form-group">
-           <label>Thẻ (Tags):</label>
-           <input class="form-control" type="text" name="tags" placeholder="Phân tách các thẻ bằng dấu phẩy (,)"
-           value="<?php if(isset($data['row']['tags'])){echo $data['row']['tags']; } ?>">
-           <?php if( isset($data['tagsError']) && !empty($data['tagsError']) ):?>
-              <div class="error alert alert-danger"><?php echo $data['tagsError']; ?></div>
-          <?php endif; ?>
-         </div>
-
-         <div class="form-group">
             <h5>Danh mục: chọn một danh mục</h5>
             <select name="category_id">
               <?php

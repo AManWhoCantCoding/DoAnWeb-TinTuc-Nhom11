@@ -52,14 +52,13 @@ class posts extends Framework{
            if($_SERVER['REQUEST_METHOD']=="POST"){
                $title         = $_POST['title'];
                $content       = $_POST['content'];
-               $tags          = $_POST['tags'];
+               $tags          = ''; // Chức năng thẻ đã bị vô hiệu hóa
                $category_id   = $_POST['category_id'];
                $author_id     = $_POST['author_id'];
 
                // if you use ckeditor do not use these filter
                $title         = $this->filter_data($title, FILTER_SANITIZE_STRING);
                $content       = $this->filter_data($content, FILTER_SANITIZE_STRING);
-               $tags          = $this->filter_data($tags, FILTER_SANITIZE_STRING);
                $category_id   = $this->filter_data($category_id, FILTER_SANITIZE_NUMBER_INT);
                $author_id     = $this->filter_data($author_id, FILTER_SANITIZE_NUMBER_INT);
 
@@ -68,8 +67,6 @@ class posts extends Framework{
                  'titleError' => '',
                  'content' => $content,
                  'contentError' => '',
-                 'tags' => $tags ,
-                 'tagsError' => '' ,
                  'category_id' => $category_id,
                  'categoriesError' => '',
                  'author_id' => $author_id,
@@ -110,22 +107,19 @@ class posts extends Framework{
                if(empty($data['content'])){
                  $data['contentError'] = 'content can not be empty';
                }
-               if(empty($data['tags'])){
-                 $data['tagsError'] = 'tags can not be empty';
-               }
                if(empty($data['category_id'])){
-                 $data['categoriesError'] = 'tags can not be empty';
+                 $data['categoriesError'] = 'category can not be empty';
                }
 
                if(empty($data['titleError']) && empty($data['contentError']) &&
-                  empty($data['tagsError']) && empty($data['imageError'])){
+                  empty($data['imageError'])){
 
 
 
 
                    $created_at = date('Y:m:d H:i:s');
 
-                       if($this->post->add_post($data['title'], $data['content'], $new_img_name, $data['tags'],
+                       if($this->post->add_post($data['title'], $data['content'], $new_img_name, $tags,
                             $data['category_id'], $data['author_id'],
                             $created_at) == 'success'){
                          $data['success'] = 'data inserted successfully';
@@ -160,13 +154,12 @@ class posts extends Framework{
         $post_id       = $_POST['post_id'];
         $title         = $_POST['title'];
         $content       = $_POST['content'];
-        $tags          = $_POST['tags'];
+        $tags          = ''; // Chức năng thẻ đã bị vô hiệu hóa
         $category_id   = $_POST['category_id'];
         $author_id     = $_POST['author_id'];
 
         $title         = $this->filter_data($title, FILTER_SANITIZE_STRING);
         $content       = $this->filter_data($content, FILTER_SANITIZE_STRING);
-        $tags          = $this->filter_data($tags, FILTER_SANITIZE_STRING);
         $category_id   = $this->filter_data($category_id, FILTER_SANITIZE_NUMBER_INT);
         $author_id     = $this->filter_data($author_id, FILTER_SANITIZE_NUMBER_INT);
 
@@ -175,8 +168,6 @@ class posts extends Framework{
           'titleError' => '',
           'content' => $content,
           'contentError' => '',
-          'tags' => $tags ,
-          'tagsError' => '' ,
           'category_id' => $category_id,
           'categoriesError' => '',
           'author_id' => $author_id,
@@ -223,19 +214,16 @@ class posts extends Framework{
         if(empty($data['content'])){
           $data['contentError'] = 'content can not be empty';
         }
-        if(empty($data['tags'])){
-          $data['tagsError'] = 'tags can not be empty';
-        }
         if(empty($data['category_id'])){
-          $data['categoriesError'] = 'tags can not be empty';
+          $data['categoriesError'] = 'category can not be empty';
         }
 
         if(empty($data['titleError']) && empty($data['contentError']) &&
-           empty($data['tagsError']) && empty($data['imageError'])){
+           empty($data['imageError'])){
 
             $created_at = date('Y:m:d H:i:s');
 
-                if($this->post->edit_post($data['title'], $data['content'], $new_img_name, $data['tags'],
+                if($this->post->edit_post($data['title'], $data['content'], $new_img_name, $tags,
                      $data['category_id'], $data['author_id'],
                      $created_at, $post_id) == 'success'){
                   $data['success'] = 'data updated successfully';

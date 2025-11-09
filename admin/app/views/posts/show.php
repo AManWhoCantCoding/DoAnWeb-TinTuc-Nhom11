@@ -23,7 +23,6 @@ include $tpl . 'header.php';
         $category_name   = $postData['category_name'];
         $category_id     = $postData['category_id'];
         $img             = $postData['img'];
-        $tags            = $postData['tags'];
         $post_created_at = $postData['post_created_at'];
         $date_diff       = $date->date_differance($post_created_at);
         ?>
@@ -42,18 +41,6 @@ include $tpl . 'header.php';
         <div class="categories"><i class="fa fa-tags"></i>
           Danh mục:
           <?php echo $category_name; ?>
-        </div>
-        <div class="categories"><i class="fa fa-tags"></i>
-          Thẻ:
-          <?php
-          $tags = str_replace(' ', '', $tags);
-          $tags = explode(',', $tags);
-          foreach($tags as $tag):
-          ?>
-          <?php echo $tag; ?>
-          <?php
-          endforeach;
-          ?>
         </div>
       </div>
      <?php else: ?>
